@@ -1,0 +1,209 @@
+<html><head><title>Writeable Strings</title>
+<link rel=stylesheet href="http://babbage.cs.qc.edu/sans-serif_body.css"
+media="screen">
+</head>
+<BODY bgcolor=#FFFFFF>
+<center>
+<h1>Writeable Strings</h1>
+</center>
+
+<h2>Introduction</h2>
+
+One requirement of the Coding Guidelines for this course is that you
+include the <b>-Wwrite-strings</b> option when you invoke the <i>g++</i>
+compiler.  The purpose of this handout is to show you how to accomplish
+common tasks in your C++ programs without getting warning messages from
+the compiler.
+
+<h2>The Problem</h2>
+
+Assume you want to have a char * variable which sometimes points to one
+message, and other times points to another one.  A first attempt might
+look like this:
+
+<pre>
+      char *msg;
+            msg = "hello";
+            msg = "good-bye";
+</pre>
+
+(Of course, real code would have these three statements interspersed
+with other, meaningful, code.)<p>
+
+This code will give you warning messages for the two assignment
+statements, saying "deprecated conversion from string constant to
+'char&nbsp;*'"  The explanation is that your code should not be able to
+modify the contents of string literals, like "hello", but the above
+code, if allowed to compile, would allow you to write statements like
+the following:
+
+<pre>
+      char *msg = "hello";
+           *msg = 'j';
+           printf( "%s\n", "hello" );
+</pre>
+
+This would let you change the literal "hello" into "jello"!  In fact,
+if you compile this code on forbin, you will get a warning message from
+the compiler, but will get an executable program that actually prints
+"jello" when you run it.  Clearly, this is not a good thing to have
+happening in your programs.  (If you run the same code on a Linux
+system, you will get a memory fault when the program tries to modify
+the string constant.  The difference has to do with how the two
+different operating systems protect different regions of memory.)<p>
+
+<a name="ptr_to_const"><h2>Correct Solution</h2></a>
+
+The correct solution to the problem is to declare msg to be a pointer to
+a constant string:
+
+<pre>
+      const char  *msg;
+                   msg = "hello";
+                   msg = "good-bye";
+</pre>
+
+That code compiles with no warning messages, and probably does just
+what you wanted to accomplish.  But, having done this, you will get an
+error message (not just a warning) from the compiler if you try
+something like:
+
+<pre>
+                  *msg = 'j';
+</pre>
+
+... which is also what you want!  It would be wrong to try to change a
+string constant.<p>
+
+Note that the following code also compiles without any warnings and
+executes without any problems:
+
+<pre>
+      const char  *msg;
+            char   buf[ 10 ];
+            sprintf( buf, "%03d\n", 7 );
+            msg = buf;
+</pre>
+
+It's okay to change the contents of the <i>buf</i> array because it has
+not been declared to be constant.  In this case, <i>msg</i> will point
+to the string, <code>"007\n"</code>.  Then statements like
+
+<pre>
+            *buf = 'x';
+</pre>
+
+will compile and execute okay, but statements like
+
+<pre>
+            *msg = 'x';
+</pre>
+
+will generate a warning from the compiler because you have declared that
+<i>msg</i> points to characters that are not to be modified.
+
+<h2>(Mis)using Casts</h2>
+
+The main use of casts is to tell the compiler that you know what you are
+doing, and that you want to be allowed to do something that normally
+doesn't make sense.
+
+For example, this code will compile with no warnings:
+
+<pre>
+        char  *msg;
+               msg = (char *) "hello";
+</pre>
+
+That is, this code "casts away" the const-ness of the literal "hello"
+when assigning a pointer to it to the variable msg.<p>
+
+But if you put in this cast, the compiler will then compile the
+following statement with no error or warning messages:
+
+<pre>
+              *msg = 'j';
+</pre>
+
+and you won't know about your mistake until run-time, when your
+program will either generate a memory fault (on Linux) or produce wrong
+results, like "jello", (on forbin).  It's a lot easier to fix problems
+if the compiler tells you where you made your mistake than trying to
+figure out what went wrong at run time, but casting away const-ness
+is a way of getting the compiler to suppress useful warning messages.<p>
+
+The moral is:
+
+<center><table width="80%" cellpadding=5 border=1>
+<tr><th>
+      Never cast away the const-ness of character strings!
+</table>      
+</center>
+
+<h2>Constant Pointers</h2>
+
+There are two possible places you can put the <i>const</i> qualifier,
+leading to four combinations:
+
+<pre>
+      const char* const msg_0;
+      const char       *msg_1;
+            char* const msg_2;
+            char       *msg_3;
+</pre>
+
+Here, <i>msg_0</i> is a constant pointer to a constant string.  The
+statement shown will give a compile-time error because <i>msg_0</i> is
+not made to point to anything, and there is no way to assign a pointer
+to it later on because of the const*.  For example:
+<pre>
+      const char const *msg_0 = "hello";
+</pre>
+
+would compile okay, and there would then be no way
+either to execute either:
+<pre>
+        *msg_0 = 'j';
+</pre>
+
+or
+
+<pre>
+         msg_0 = "good-bye";
+</pre>
+
+Basically, this makes <i>msg_0</i> synonymous with the string constant,
+<code>"hello"</code>.<p>
+
+We have already looked at code equivalent to <i>msg_1</i> <a
+href="#ptr_to_const">earlier</a>. This pointer can be assigned pointers
+to both constant and variable strings, but cannot be used to modify any
+string that it points to.<p>
+
+There will also be an error if you try to compile the definition of
+<i>msg_2</i> for the same reason there would be an error for
+<i>msg_0</i>.  Because the pointer itself is constant, it has to be
+given a value when the variable is declared.  But having done so, it
+would be syntactically correct to change the string pointed to by this
+variable:
+
+<pre>
+      char        buf[ 10 ];
+      char const *msg_2 = buf;
+</pre>
+
+With this code, <i>msg_2</i> points to <i>buf[ 0 ]</i>, and it must do
+so forever.<p>
+
+And there's not much to say about <i>msg_3</i>.  You can change the
+pointer, and you can change what the pointer points to.
+
+<h2>Reminder</h2>
+
+Pointers and arrays are two different things, despite what you might
+hear elsewhere.  In this web page, variables with <u>msg</u> in their
+names are all pointers, and <i>buf</i> is always an array.  But if you
+refer to an array without a subscript, the compiler will generate a
+hidden pointer to the first element of the array for you.<p>
+
+<hr></body></html>

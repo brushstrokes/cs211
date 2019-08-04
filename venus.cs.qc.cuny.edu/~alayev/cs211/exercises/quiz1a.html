@@ -1,0 +1,162 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./Quiz1A_files/filelist.xml">
+<title>Name: _________________</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Jerry Klein</o:Author>
+  <o:LastAuthor>Jerry Klein</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>40</o:TotalTime>
+  <o:Created>2003-09-11T21:32:00Z</o:Created>
+  <o:LastSaved>2003-09-11T21:32:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>274</o:Words>
+  <o:Characters>1566</o:Characters>
+  <o:Lines>13</o:Lines>
+  <o:Paragraphs>3</o:Paragraphs>
+  <o:CharactersWithSpaces>1923</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DrawingGridHorizontalSpacing>6 pt</w:DrawingGridHorizontalSpacing>
+  <w:DrawingGridVerticalSpacing>6 pt</w:DrawingGridVerticalSpacing>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:WW6BorderRules/>
+   <w:FootnoteLayoutLikeWW8/>
+   <w:ShapeLayoutLikeWW8/>
+   <w:AlignTablesRowByRow/>
+   <w:ForgetLastTabAlignment/>
+   <w:AutoSpaceLikeWord95/>
+   <w:LayoutRawTableWidth/>
+   <w:LayoutTableRowsApart/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	mso-layout-grid-align:none;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	mso-layout-grid-align:none;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:0pt;
+	text-decoration:underline;
+	text-underline:single;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal>Name: _________________</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Queens College, CS211<span style='mso-tab-count:2'>                     </span><span
+style='mso-tab-count:2'>                                </span><span
+style='mso-tab-count:1'>                </span>Instructors: Stuart Kern, John
+Donath</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h1>Quiz #1, Version A</h1>
+
+<p class=MsoNormal align=center style='text-align:center'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='text-align:justify'>Directions:<span
+style="mso-spacerun: yes">  </span>Answer the following questions on the quiz
+paper.<span style="mso-spacerun: yes">  </span>The quiz is open book, open
+notes.</p>
+
+<p class=MsoNormal style='text-align:justify'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='text-align:justify'>Questions 1 and 2 involve a class
+<b>Student</b>.<span style="mso-spacerun: yes">  </span>The class should keep
+track of the student’s name as a c-string which can store at most 15 characters
+(remember that a c-string is an array of characters, terminated by ‘\0’, don’t
+forget to allocate space for the termination symbol), the student’s course id
+number as an integer, and age as an int.<span style="mso-spacerun: yes"> 
+</span></p>
+
+<p class=MsoNormal style='text-align:justify;text-indent:.5in'>The class should
+also have two functions:<span style="mso-spacerun: yes">  </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-align:justify;text-indent:.5in'>1.
+This function gets, as parameters, the student’s name as a c-string, gender as
+a character and the age as an integer.<span style="mso-spacerun: yes"> 
+</span>It then sets the name of the student stored in the class up to the first
+15 letters in the parameter (if the name exceeds 15 characters), and creates an
+id number for the student, which it calculates by adding the student’s age, the
+character value of the first letter in the student’s name, and the constant
+10000 if the student is female.<span style="mso-spacerun: yes">  </span>It
+stores the student’s id and age as part of the class.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-align:justify;text-indent:.5in'>2.<span
+style="mso-spacerun: yes">  </span>This function returns a bool that is false
+if the student is male, true if the student is female.<span
+style="mso-spacerun: yes">  </span>Remember that females have id numbers larger
+than 10000 and males have id numbers smaller than 10000.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-align:justify;text-indent:.5in'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='text-align:justify'>1.<span style="mso-spacerun:
+yes">  </span>Write the .h file for this class (3 points).</p>
+
+<p class=MsoNormal style='text-align:justify'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='text-align:justify'>2.<span style="mso-spacerun:
+yes">  </span>Write the .cpp file for this class (3 points).</p>
+
+<p class=MsoNormal style='text-align:justify'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+</body>
+
+</html>
